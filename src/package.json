@@ -1,0 +1,15 @@
+{
+    "name": "agon",
+    "version": "0.1.0a",
+    "main": "compiled/main.js",
+    "devDependencies": {
+        "electron": "^31.0.2",
+        "sass": "^1.77.6",
+        "typescript": "^5.5.2"
+    },
+    "scripts": {
+        "build": "tsc --project ./scripts/tsconfig.json && sass ./styles:./compiled/styles && py htmlcopy.py",
+        "run": "electron .",
+        "build-run": "npm run build && npm run run"
+    }
+}

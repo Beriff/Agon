@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "../compiled/",
+    "rootDir": "./",
+    // "composite": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
