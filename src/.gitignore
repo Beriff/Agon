@@ -1,1 +1,4 @@
 node_modules/
+compiled/scripts/*
+compiled/pages/*
+compiled/styles/*

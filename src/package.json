@@ -1,7 +1,7 @@
 {
     "name": "agon",
     "version": "0.1.0a",
-    "main": "compiled/main.js",
+    "main": "compiled/scripts/main.js",
     "devDependencies": {
         "electron": "^31.0.2",
         "sass": "^1.77.6",
