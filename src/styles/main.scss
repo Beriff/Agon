@@ -1,0 +1,31 @@
+@import url("../../res/OpenSans.ttf");
+
+$col-bg: rgb(51,51,56);
+$col-bg-light: rgb(73, 73, 81);
+
+body {
+    margin: 0;
+}
+
+#main {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: $col-bg;
+}
+
+#intro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    img {
+        object-fit: contain;
+        width: 35%;
+        height: 35%;
+    }
+}

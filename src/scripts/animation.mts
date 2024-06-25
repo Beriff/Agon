@@ -1,13 +1,13 @@
-import { AgonMath, Generator, Relay } from './common'
+import { AgonMath, Generator } from './common.mjs'
 
-interface CSSPropertyMapper {
+export interface CSSPropertyMapper {
     From(css_string: string): CSSPropertyMapper;
     GetProperty(): string;
     Add(other: CSSPropertyMapper): CSSPropertyMapper;
     Lerp(other: CSSPropertyMapper, t: number): CSSPropertyMapper;
 }
 
-class CSSColor implements CSSPropertyMapper {
+export class CSSColor implements CSSPropertyMapper {
     public R: number;
     public G: number;
     public B: number;
@@ -50,7 +50,7 @@ class CSSColor implements CSSPropertyMapper {
     }
 }
 
-class CSSNumeric implements CSSPropertyMapper {
+export class CSSNumeric implements CSSPropertyMapper {
     public Postfix: string;
     public Value: number = 0;
 
@@ -89,16 +89,17 @@ type EasingModule = {In: Easing, Out: Easing, InOut: Easing}
  */
 export class Tween {
 
-    static PropSubstitute<T extends CSSPropertyMapper>(prop: string, mapper: T): TweenCallback {
+    static EasePropertyCallback<T extends CSSPropertyMapper>(prop: string, mapper: T): TweenCallback {
         return (tween: Tween) => {
         tween.Subject.style.setProperty(
             prop, 
             mapper.From(tween.EasingInterval[0]).Lerp(mapper.From(tween.EasingInterval[1]), tween.GetEasedValue()).GetProperty()
             );
+        //console.log(tween.Subject.style.getPropertyValue(prop))
         }
     };
 
-    static readonly Easings: {[key: string]: EasingModule} = {
+    public static readonly Easings: {[key: string]: EasingModule} = {
         Expo: {
             Out: (x) => x === 1 ? 1 : 1 - Math.pow(2, -10 * x),
             In: (x) => x === 0 ? 0 : Math.pow(2, 10 * x - 10),
@@ -129,13 +130,14 @@ export class Tween {
             () => {
                 callback(this); 
                 this.IncrementCounter();
-            }, 100
+            }, 10
             );
         this.Subject = subject;
         this.Lifetime = lifetime;
         this.Easing = easing;
         if(typeof to == 'string') {
             this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to]
+            console.log(getComputedStyle(subject).getPropertyValue(property))
         } else {
             this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to.GetProperty()]
         }

@@ -1,5 +1,6 @@
 {
     "name": "agon",
+    "type": "module",
     "version": "0.1.0a",
     "main": "compiled/scripts/main.js",
     "devDependencies": {
