@@ -8,7 +8,8 @@
         "typescript": "^5.5.2"
     },
     "scripts": {
-        "build": "tsc --project ./scripts/tsconfig.json && sass ./styles:./compiled/styles && py htmlcopy.py",
+        "clean": "py clear.py",
+        "build": "npm run clean && tsc --project ./scripts/tsconfig.json && sass ./styles:./compiled/styles && py htmlcopy.py",
         "run": "electron .",
         "build-run": "npm run build && npm run run"
     }
