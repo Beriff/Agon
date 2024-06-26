@@ -11,9 +11,13 @@ Agon is an electron.js based free open source application for digital drawing, f
 Before building, make sure you have the latest versions of `node.js`, `python 3` installed. 
 After downloading the source code run
 ```
+npm run install
+```
+to install all the missing dependencies, after which you have to run
+```
 npm run build-run
 ```
-For any other subsequent launches, you may use
+to build and run the application. For any other subsequent launches, you may use
 ```
 npm run run
 ```
