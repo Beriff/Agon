@@ -114,8 +114,10 @@ export class Tween {
     public Easing: Easing;
     public EasingInterval: [string, string];
     public Finished: boolean = false;
+    public FinishedCallback: {callback: () => void, timing: number};
 
     private Counter: number = 0;
+    private Callback: TweenCallback;
 
     constructor(
         subject: HTMLElement, 
@@ -132,15 +134,16 @@ export class Tween {
                 this.IncrementCounter();
             }, 10
             );
+        this.Callback = callback;
         this.Subject = subject;
         this.Lifetime = lifetime;
         this.Easing = easing;
         if(typeof to == 'string') {
-            this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to]
-            console.log(getComputedStyle(subject).getPropertyValue(property))
+            this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to];
         } else {
-            this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to.GetProperty()]
+            this.EasingInterval = [getComputedStyle(subject).getPropertyValue(property), to.GetProperty()];
         }
+        this.FinishedCallback = {callback: () => {}, timing: 1};
         
     }
 
@@ -148,11 +151,22 @@ export class Tween {
         return this.Easing(this.Counter / this.Lifetime)
     }
 
+    public Then(callback: () => void, timing: number = 1): void {
+        this.FinishedCallback = {callback: callback, timing: timing};
+    }
+
     private IncrementCounter() {
         this.Counter++;
-        if(this.Counter >= this.Lifetime) {
+        let ratio = this.Counter / this.Lifetime;
+
+        if(AgonMath.Close(ratio, this.FinishedCallback.timing)) {
+            this.FinishedCallback.callback();
+        }
+
+        if(ratio >= 1) {
             this.Finished = true;
-            clearInterval(this.Interval)
+            clearInterval(this.Interval);
+            this.Callback(this);
         }
     }
 }
